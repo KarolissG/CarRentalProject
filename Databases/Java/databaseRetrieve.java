@@ -21,6 +21,7 @@ public class databaseRetrieve {
 
             ResultSetMetaData metaData = resultSet.getMetaData();
             int numberOfColumns = metaData.getColumnCount();
+            
             System.out.println("\n--Login Table-- \n");
             for (int i = 1; i <= numberOfColumns; i++)
                 System.out.print(metaData.getColumnName(i) + "\t");
