@@ -1,0 +1,79 @@
+package CRUD2;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+public class CustomerCRUD {
+    static Connection connection = null;
+    static ResultSet resultSet = null;
+    static PreparedStatement pstat = null;
+    static PreparedStatement tempPstat = null;
+
+    public static ResultSet RetrieveTable(Connection connectionIn) {
+        try {
+            pstat = connectionIn.prepareStatement("SELECT * FROM customer"); // sql query
+            resultSet = pstat.executeQuery(); // executes the query
+
+            return resultSet;
+        } catch (SQLException sqlException) { // catch errors
+            sqlException.printStackTrace();
+        }
+        return null;
+    }// method
+
+    public static void DeleteCustomer(Connection connectionIn, int ID) {
+        try {
+            String query = "DELETE FROM customer WHERE customerID = ?";
+            pstat = connectionIn.prepareStatement(query);
+            pstat.setInt(1, ID);
+            pstat.executeUpdate();
+
+        } catch (SQLException sqlException) { // catch errors
+            sqlException.printStackTrace();
+        } finally {
+            if (pstat != null) {
+                try {
+                    pstat.close();
+                } catch (SQLException exception) {
+                    exception.printStackTrace();
+                }
+            }
+        }
+
+    }
+
+    public static void RegisterCustomer(Connection connectionIn, String name, String password, String eircode,
+            String phoneNum, String DOB, String email, String driverNum, String review) {
+        try {
+            // Create PreparedStatement with SQL query
+            String query = "INSERT INTO customer (name, password, eircode, phoneNo, DOB, email, driverNum, review) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            pstat = connectionIn.prepareStatement(query);
+
+            // Set values for PreparedStatement parameters
+            pstat.setString(1, name);
+            pstat.setString(2, password);
+            pstat.setString(3, eircode);
+            pstat.setString(4, phoneNum);
+            pstat.setString(5, DOB);
+            pstat.setString(6, email);
+            pstat.setString(7, driverNum);
+            pstat.setString(8, review);
+
+            // Execute the update operation
+            pstat.executeUpdate();
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        } finally {
+            try {
+                // Close PreparedStatement
+                if (pstat != null) {
+                    pstat.close();
+                }
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+        }
+    }
+}
