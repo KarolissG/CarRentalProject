@@ -141,6 +141,8 @@ public class databaseCRUD {
             try {// close all connections to database and get errors
                 resultSet.close();
                 pstat.close();
+                dataIn.close();
+
             } catch (Exception exception) {
                 exception.printStackTrace();
             }
@@ -183,6 +185,8 @@ public class databaseCRUD {
             try {// close all connections to database and get errors
                 resultSet.close();
                 pstat.close();
+                dataIn.close();
+
             } catch (Exception exception) {
                 exception.printStackTrace();
             }
@@ -233,6 +237,7 @@ public class databaseCRUD {
         } finally {
             try {// close all connections to database and get errors
                 resultSet.close();
+                dataIn.close();
                 pstat.close();
                 tempPstat.close();
             } catch (Exception exception) {
@@ -304,6 +309,8 @@ public class databaseCRUD {
         } finally {
             try {// close all connections to database and get errors
                 pstat.close();
+                dataIn.close();
+
             } catch (Exception exception) {
                 exception.printStackTrace();
             }
@@ -362,6 +369,7 @@ public class databaseCRUD {
         } finally {
             try {// close all connections to database and get errors
                 pstat.close();
+                dataIn.close();
             } catch (Exception exception) {
                 exception.printStackTrace();
             }
@@ -426,6 +434,8 @@ public class databaseCRUD {
         } finally {
             try {// close all connections to database and get errors
                 pstat.close();
+                dataIn.close();
+
             } catch (Exception exception) {
                 exception.printStackTrace();
             }

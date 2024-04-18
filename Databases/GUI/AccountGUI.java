@@ -58,6 +58,7 @@ public class AccountGUI extends JFrame implements ActionListener {
             // Handle register customer button click
             RegisterCustomer registerCustomer = new RegisterCustomer();
             registerCustomer.setVisible(true);
+            dispose();
         } else if (event.getSource() == exitButton) { // Check if the exit button is clicked
             // Open the main window again
             Main.openMainWindow();

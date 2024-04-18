@@ -89,12 +89,15 @@ public class test {
                         System.out.println("Invalid Input");
                         exit = false;
                 }
+                TableIn.close();
             }
         } catch (SQLException sqlException) { // catch errors
             sqlException.printStackTrace();
         } finally {
             try {// close all connections to database and get errors
                 connection.close();
+
+                UserIn.close();
             } catch (Exception exception) {
                 exception.printStackTrace();
             }
