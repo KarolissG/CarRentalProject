@@ -23,6 +23,16 @@ public class CustomerCRUD {
         return null;
     }// method
 
+    public Boolean LoginCheck(Connection connectionIn, String name, String password) {
+        try {
+            pstat = connectionIn.prepareStatement("SELECT * FROM customer WHERE username = ? AND password = ?");
+             resultSet = pstat.executeQuery(); // executes the query
+        } catch (SQLException sqlException) { // catch errors
+            sqlException.printStackTrace();
+        }
+        return true;
+    }
+
     public static void DeleteCustomer(Connection connectionIn, int ID) {
         try {
             String query = "DELETE FROM customer WHERE customerID = ?";
