@@ -115,9 +115,31 @@ public class RegisterCustomer extends JFrame implements ActionListener {
         String driverNum = driverNumField.getText();
         String review = reviewField.getText();
 
-        if (name.isEmpty() || password.isEmpty() || eircode.isEmpty() || phoneNo.isEmpty() 
-        || dob.isEmpty() || email.isEmpty() || driverNum.isEmpty() || review.isEmpty()) {
+        if (name.isEmpty() || password.isEmpty() || eircode.isEmpty() || phoneNo.isEmpty()
+                || dob.isEmpty() || email.isEmpty() || driverNum.isEmpty() || review.isEmpty()) {
             JOptionPane.showMessageDialog(this, "All fields are required. Please fill in all fields.");
+            return false;
+        }
+
+        // Validation for email format
+        if (!email.contains("@")) {
+            JOptionPane.showMessageDialog(this, "Please enter a valid email address.");
+            return false;
+        }
+
+        // Validation for lengths of certain fields
+        if (phoneNo.length() > 15) {
+            JOptionPane.showMessageDialog(this, "Please enter a valid phone number (15 digits).");
+            return false;
+        }
+        if (driverNum.length() > 10) {
+            JOptionPane.showMessageDialog(this, "Please enter a valid driver number (10 digits).");
+            return false;
+        }
+
+        // Validation for date format (yyyy-mm-dd)
+        if (!dob.matches("\\d{4}-\\d{2}-\\d{2}")) {
+            JOptionPane.showMessageDialog(this, "Please enter the date of birth in the format yyyy-mm-dd.");
             return false;
         }
 
