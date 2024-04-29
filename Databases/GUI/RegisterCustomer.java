@@ -97,11 +97,19 @@ public class RegisterCustomer extends JFrame implements ActionListener {
             }
 
         } else if (e.getSource() == cancelButton) {
-            // Open the AccountGUI window
-            AccountGUI accountGUI = new AccountGUI();
-            accountGUI.setVisible(true);
-            // Close the current ViewCustomer window
-            dispose();
+            if (Login.loggedIn) {
+                // Open the AccountGUI window
+                AccountGUI accountGUI = new AccountGUI();
+                accountGUI.setVisible(true);
+                // Close the current ViewCustomer window
+                dispose();
+            } else {
+                // Open the AccountGUI window
+                Login Login = new Login();
+                Login.setVisible(true);
+                // Close the current ViewCustomer window
+                dispose();
+            }
         }
     }
 

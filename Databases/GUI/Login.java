@@ -3,30 +3,39 @@ package GUI;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
+import CRUD2.CustomerCRUD;
+import GUI.Main.ConnectionManager;
+
 public class Login extends JFrame implements ActionListener {
-    private JTextField usernameField;
+    public static Boolean loggedIn = false;
+    public static String email; 
+    private JTextField emailField;
     private JPasswordField passwordField;
     private JButton loginButton;
     private JButton registerButton;
+    private Connection connection = ConnectionManager.getConnection();
 
     public Login() {
         setTitle("Login");
         setSize(300, 150);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
         setLayout(new GridLayout(3, 2));
 
-        JLabel usernameLabel = new JLabel("Username:");
-        JLabel passwordLabel = new JLabel("Password:");
+        JLabel emailLabel = new JLabel(" Email:");
+        JLabel passwordLabel = new JLabel(" Password:");
 
-        usernameField = new JTextField();
+        emailField = new JTextField();
         passwordField = new JPasswordField();
 
         registerButton = new JButton("Register");
@@ -34,11 +43,11 @@ public class Login extends JFrame implements ActionListener {
         loginButton = new JButton("Login");
         loginButton.addActionListener(this);
 
-        add(usernameLabel);
-        add(usernameField);
+        add(emailLabel);
+        add(emailField);
         add(passwordLabel);
         add(passwordField);
-        add(new JLabel()); // Empty label for spacing
+        add(registerButton);
         add(loginButton);
 
         setVisible(true);
@@ -46,15 +55,23 @@ public class Login extends JFrame implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == loginButton) {
-            String username = usernameField.getText();
+            String email = emailField.getText();
             String password = new String(passwordField.getPassword());
+            // user passwrod check
+            if (CustomerCRUD.LoginCheck(connection, email, password)) {
+                loggedIn = true;
+                this.email = email;
+                Main Main = new Main();
+                Main.setVisible(true);
+                dispose();
+            } else
+                JOptionPane.showMessageDialog(this, "Username or Password incorrect ");
 
-            // Here you can add your authentication logic
-            // For simplicity, let's just print the username and password
-            System.out.println("Username: " + username);
-            System.out.println("Password: " + password);
         } else if (e.getSource() == registerButton) {
-            // Functuin if Register is pressed
+            // Handle register customer button click
+            RegisterCustomer registerCustomer = new RegisterCustomer();
+            registerCustomer.setVisible(true);
+            dispose();
         }
     }
 

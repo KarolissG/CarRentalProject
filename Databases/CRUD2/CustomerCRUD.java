@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class CustomerCRUD {
-    static Connection connection = null;
     static ResultSet resultSet = null;
     static PreparedStatement pstat = null;
     static PreparedStatement tempPstat = null;
@@ -23,14 +22,19 @@ public class CustomerCRUD {
         return null;
     }// method
 
-    public Boolean LoginCheck(Connection connectionIn, String name, String password) {
+    public static Boolean LoginCheck(Connection connectionIn, String email, String password) {
         try {
-            pstat = connectionIn.prepareStatement("SELECT * FROM customer WHERE username = ? AND password = ?");
-             resultSet = pstat.executeQuery(); // executes the query
+            pstat = connectionIn.prepareStatement("SELECT * FROM customer WHERE email = ? AND password = ?");
+            pstat.setString(1, email);
+            pstat.setString(2, password);
+            resultSet = pstat.executeQuery(); // executes the query
+            if (resultSet.next()) {
+                return true;
+            }
         } catch (SQLException sqlException) { // catch errors
             sqlException.printStackTrace();
         }
-        return true;
+        return false;
     }
 
     public static void DeleteCustomer(Connection connectionIn, int ID) {
