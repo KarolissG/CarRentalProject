@@ -1,4 +1,4 @@
-package GUI;
+package src.GUI;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -15,8 +15,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import CRUD2.CustomerCRUD;
-import GUI.Main.ConnectionManager;
+import src.CRUD2.CustomerCRUD;
+import src.GUI.Main.ConnectionManager;
 
 public class UpdateCustomer extends JFrame implements ActionListener {
     private JTextField nameField, passwordField, eircodeField,

@@ -1,4 +1,4 @@
-package CRUD2;
+package src.CRUD2;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

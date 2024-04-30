@@ -1,4 +1,4 @@
-package GUI;
+package src.GUI;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -17,43 +17,49 @@ import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
-import GUI.Main.ConnectionManager;
+import src.GUI.Main.ConnectionManager;
 
-public class ViewInvoice extends JFrame {
+public class ViewOrder extends JFrame {
+
     private JTable table;
-    private JScrollPane scrollPane;
-    private JButton deleteButton, exitButton;
+    private JButton deleteButton;
+    private JButton updateButton;
+    private JButton exitButton;
     private Connection connection = ConnectionManager.getConnection();
 
-    public ViewInvoice() {
-        setTitle("Invoices");
-        setSize(500, 300);
+    public ViewOrder() {
+        setTitle("Reservation Management");
+        setSize(750, 300);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        // Create table model
         DefaultTableModel model = new DefaultTableModel() {
             public boolean isCellEditable(int row, int column) {
-                return false; // Make all cells uneditable
+                return false; // Make uneditable
             }
         };
 
-        // Create table and set model
         table = new JTable(model);
-        scrollPane = new JScrollPane(table);
-        add(scrollPane, BorderLayout.CENTER);
-        // create button
-        deleteButton = new JButton("Delete");
-        deleteButton.addActionListener(this::actionPerformed);
-        // Create exit button
-        exitButton = new JButton("Exit");
-        exitButton.addActionListener(this::actionPerformed);
 
-        // Create panel for buttons
-        JPanel buttonPanel = new JPanel(new GridLayout(1, 2)); // GridLayout with 1 row and 2 columns
+        // Create scroll pane
+        JScrollPane scrollPane = new JScrollPane(table);
+        add(scrollPane, BorderLayout.CENTER);
+
+        // Create buttons
+        deleteButton = new JButton("Delete");
+        deleteButton.addActionListener(this::actionPreformed);
+        updateButton = new JButton("Update");
+        updateButton.addActionListener(this::actionPreformed);
+        exitButton = new JButton("Exit");
+        exitButton.addActionListener(this::actionPreformed);
+
+        JPanel buttonPanel = new JPanel(new GridLayout(1, 3));
+        buttonPanel.add(updateButton);
         buttonPanel.add(deleteButton);
         buttonPanel.add(exitButton);
         getContentPane().add(buttonPanel, BorderLayout.SOUTH);
+
+        // Load data into the table
         loadData();
 
         setVisible(true);
@@ -63,7 +69,7 @@ public class ViewInvoice extends JFrame {
     /** 
      * @param event
      */
-    public void actionPerformed(ActionEvent event) {
+    public void actionPreformed(ActionEvent event) {
         if (event.getSource() == exitButton) {
             // Open the Main window
             Main main = new Main();
@@ -71,35 +77,54 @@ public class ViewInvoice extends JFrame {
             // Close the current window
             dispose();
         } else if (event.getSource() == deleteButton) {
+            // Delete
             int row = table.getSelectedRow();
             if (row == -1) {
-                JOptionPane.showMessageDialog(ViewInvoice.this, "Please select a row to delete.");
+                JOptionPane.showMessageDialog(ViewOrder.this, "Please select a row to delete.");
                 return;
             }
             DefaultTableModel model = (DefaultTableModel) table.getModel();
-            int invoiceId = (int) model.getValueAt(row, 0);
-            int option = JOptionPane.showConfirmDialog(ViewInvoice.this,
-                    "Are you sure you want to delete invoice ID: " + invoiceId + "?",
+            int reservationId = (int) model.getValueAt(row, 0);
+            // Display a confirmation dialog
+            int option = JOptionPane.showConfirmDialog(ViewOrder.this,
+                    "Are you sure you want to delete reservation ID: " + reservationId + "?",
                     "Confirmation", JOptionPane.YES_NO_OPTION);
             if (option == JOptionPane.YES_OPTION) {
                 // Delete the customer
-                if (CRUD2.InvoiceCRUD.DeleteInvoice(this.connection, invoiceId) != 1) {
-                    JOptionPane.showMessageDialog(ViewInvoice.this, "Error Deleting Order");
+<<<<<<< HEAD:Databases/GUI/ViewOrder.java
+                if(CRUD2.OrderCRUD.DeleteOrder(this.connection, reservationId) != 1) {
+=======
+                if (src.CRUD2.OrderCRUD.DeleteOrder(this.connection, reservationId) != 1) {
+>>>>>>> ef1c881f3678a4d9521a9c690bb8d282a766f514:Databases/src/GUI/ViewOrder.java
+                    JOptionPane.showMessageDialog(ViewOrder.this, "Error Deleting Order");
                 } else {
                     // Remove the row from the table model
                     model.removeRow(row);
                     // Output to user that the customer has been deleted
-                    JOptionPane.showMessageDialog(ViewInvoice.this,
-                            "Reservation ID: " + invoiceId + " deleted successfully.");
+                    JOptionPane.showMessageDialog(ViewOrder.this,
+                            "Invoice ID: " + reservationId + " deleted successfully.");
                 }
             }
+        } else if (event.getSource() == updateButton) {
+            int row = table.getSelectedRow();
+            if (row == -1) {
+                JOptionPane.showMessageDialog(ViewOrder.this, "Please select a row to update.");
+                return;
+            }
+            DefaultTableModel model = (DefaultTableModel) table.getModel();
+            int reservationId = (int) model.getValueAt(row, 0);
+            // Open the UpdateOrder window with OrderId
+            UpdateOrder updateOrder = new UpdateOrder(reservationId);
+            updateOrder.setVisible(true);
+            // Close the current ViewOrder window
+            dispose();
         }
     }
 
     private void loadData() {
         try {
             // Execute query to retrieve data
-            ResultSet resultSet = CRUD2.InvoiceCRUD.RetrieveTable(this.connection);
+            ResultSet resultSet = src.CRUD2.OrderCRUD.RetrieveTable(this.connection);
 
             // Get metadata
             ResultSetMetaData metaData = resultSet.getMetaData();
@@ -131,7 +156,7 @@ public class ViewInvoice extends JFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                new ViewInvoice();
+                new ViewOrder();
             }
         });
     }
