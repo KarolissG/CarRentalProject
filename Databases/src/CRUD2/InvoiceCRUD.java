@@ -1,4 +1,4 @@
-package CRUD2;
+package src.CRUD2;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -27,6 +27,12 @@ public class InvoiceCRUD {
         return null;
     }// method
 
+    
+    /** 
+     * @param connectionIn
+     * @param ID
+     * @return int
+     */
     public static int DeleteInvoice(Connection connectionIn, int ID) {
         try {
             String query = "DELETE FROM invoice WHERE invoiceID = ?";

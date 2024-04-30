@@ -1,4 +1,4 @@
-package CRUD2;
+package src.CRUD2;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -27,6 +27,12 @@ public class OrderCRUD {
         }
         return null;
     }// method
+     
+     /** 
+      * @param connectionIn
+      * @param ID
+      * @return ResultSet
+      */
      // Retrieve one row
 
     public static ResultSet RetrieveOrder(Connection connectionIn, int ID) {
@@ -41,6 +47,12 @@ public class OrderCRUD {
         return null;
     }// method
 
+    
+    /** 
+     * @param connectionIn
+     * @param ID
+     * @return int
+     */
     public static int DeleteOrder(Connection connectionIn, int ID) {
         try {
             String query = "DELETE FROM reservation WHERE reservationID = ?";
