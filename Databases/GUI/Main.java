@@ -110,7 +110,6 @@ public class Main extends JFrame implements ActionListener {
 
     // ActionListener implementation for button clicks
     public void actionPerformed(ActionEvent event) {
-        CardLayout cardLayout = (CardLayout) contentPanel.getLayout();
         if (event.getSource() == accountButton) {
             // Create and show the AccountGUI panel
             AccountGUI accountGUI = new AccountGUI();
@@ -118,7 +117,9 @@ public class Main extends JFrame implements ActionListener {
             dispose();
 
         } else if (event.getSource() == reserveButton) {
-            cardLayout.show(contentPanel, "reserve");
+            VehicleTypeSelection vehicleSelect = new VehicleTypeSelection();
+            vehicleSelect.setVisible(true);
+
         } else if (event.getSource() == returnButton) {
             ViewOrder viewOrder = new ViewOrder();
             viewOrder.setVisible(true);
