@@ -81,7 +81,7 @@ public class ViewOrder extends JFrame {
             }
             DefaultTableModel model = (DefaultTableModel) table.getModel();
             int reservationId = (int) model.getValueAt(row, 0);
-            // Display a confirmation dialog with customer ID and name
+            // Display a confirmation dialog
             int option = JOptionPane.showConfirmDialog(ViewOrder.this,
                     "Are you sure you want to delete reservation ID: " + reservationId + "?",
                     "Confirmation", JOptionPane.YES_NO_OPTION);
@@ -94,11 +94,10 @@ public class ViewOrder extends JFrame {
                     model.removeRow(row);
                     // Output to user that the customer has been deleted
                     JOptionPane.showMessageDialog(ViewOrder.this,
-                            "Reservation ID: " + reservationId + " deleted successfully.");
+                            "Invoice ID: " + reservationId + " deleted successfully.");
                 }
             }
-        }
-        else if (event.getSource() == updateButton){
+        } else if (event.getSource() == updateButton) {
             int row = table.getSelectedRow();
             if (row == -1) {
                 JOptionPane.showMessageDialog(ViewOrder.this, "Please select a row to update.");

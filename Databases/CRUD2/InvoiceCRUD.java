@@ -21,4 +21,17 @@ public class InvoiceCRUD {
         }
         return null;
     }// method
+
+    public static int DeleteInvoice(Connection connectionIn, int ID) {
+        try {
+            String query = "DELETE FROM invoice WHERE invoiceID = ?";
+            pstat = connectionIn.prepareStatement(query);
+            pstat.setInt(1, ID);
+            int i = pstat.executeUpdate();
+            return i;
+        } catch (SQLException sqlException) { // catch errors
+            sqlException.printStackTrace();
+            return -1;
+        }
+    }
 }

@@ -104,10 +104,10 @@ public class RegisterCustomer extends JFrame implements ActionListener {
                 // Close the current ViewCustomer window
                 dispose();
             } else {
-                // Open the AccountGUI window
+                // Open the Login window
                 Login Login = new Login();
                 Login.setVisible(true);
-                // Close the current ViewCustomer window
+                // Close the current window
                 dispose();
             }
         }

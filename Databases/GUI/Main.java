@@ -133,10 +133,18 @@ public class Main extends JFrame implements ActionListener {
 
     // Main method to start the application
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            Main system = new Main();
-            system.setVisible(true);
-        });
+        if (Login.loggedIn) {
+            SwingUtilities.invokeLater(() -> {
+                Main system = new Main();
+                system.setVisible(true);
+            });
+        } else {
+            // Open the Login window
+            Login Login = new Login();
+            Login.setVisible(true);
+            // Close the current window
+        }
+
     }
 
 }

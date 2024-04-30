@@ -31,6 +31,7 @@ public class ViewCustomer extends JFrame {
         setTitle("Customer Management");
         setSize(500, 300);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setSize(1000, 400);
         setLocationRelativeTo(null);
 
         // Create table model
