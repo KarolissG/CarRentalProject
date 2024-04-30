@@ -14,10 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import GUI.Main.ConnectionManager;
@@ -28,7 +25,6 @@ public class ViewOrder extends JFrame {
     private JButton deleteButton;
     private JButton updateButton;
     private JButton exitButton;
-    private Object[] rawData;
     private Connection connection = ConnectionManager.getConnection();
 
     public ViewOrder() {
@@ -39,7 +35,7 @@ public class ViewOrder extends JFrame {
 
         DefaultTableModel model = new DefaultTableModel() {
             public boolean isCellEditable(int row, int column) {
-                return column != 0; // Make only column 0 uneditable
+                return false; // Make uneditable
             }
         };
 
@@ -49,32 +45,6 @@ public class ViewOrder extends JFrame {
         JScrollPane scrollPane = new JScrollPane(table);
         add(scrollPane, BorderLayout.CENTER);
 
-        ListSelectionModel selectionModel = table.getSelectionModel();
-        selectionModel.addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent event) {
-                if (!event.getValueIsAdjusting()) {
-                    int selectedRow = table.getSelectedRow();
-                    loadData();
-                    if (selectedRow != -1) {
-                        // When selected
-                        RowSelection(selectedRow);
-
-                    }
-                }
-            }
-
-            private Object[] RowSelection(int selectedRow) {
-                Object[] rowData = new Object[table.getColumnCount()];
-                // Iterate over each column in the selected row
-                for (int columnIndex = 0; columnIndex < table.getColumnCount(); columnIndex++) {
-                    // Get the value of the cell at the selected row and current column
-                    Object cellValue = table.getValueAt(selectedRow, columnIndex);
-                    // Store the cell value in the rowData array
-                    rowData[columnIndex] = cellValue;
-                }
-                return rowData;
-            }
-        });
         // Create buttons
         deleteButton = new JButton("Delete");
         deleteButton.addActionListener(this::actionPreformed);
@@ -102,8 +72,6 @@ public class ViewOrder extends JFrame {
             main.setVisible(true);
             // Close the current window
             dispose();
-        } else if (event.getSource() == updateButton) {
-            JOptionPane.showMessageDialog(ViewOrder.this, "(origional) - ");
         } else if (event.getSource() == deleteButton) {
             int row = table.getSelectedRow();
             if (row == -1) {
@@ -155,20 +123,6 @@ public class ViewOrder extends JFrame {
             exception.printStackTrace();
         }
     }
-
-    private void updateAction() {
-        // Implement update action here
-        JOptionPane.showMessageDialog(this, "Update action is not yet implemented.");
-    }
-
-    private void exitAction() {
-        // Open the Main window
-        Main Main = new Main();
-        Main.setVisible(true);
-        // Close the current ViewOrder window
-        dispose();
-    }
-
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {

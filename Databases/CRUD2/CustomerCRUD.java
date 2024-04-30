@@ -49,12 +49,13 @@ public class CustomerCRUD {
         return false;
     }
 
-    public static void DeleteCustomer(Connection connectionIn, int ID) {
+    public static int DeleteCustomer(Connection connectionIn, int ID) {
         try {
             String query = "DELETE FROM customer WHERE customerID = ?";
             pstat = connectionIn.prepareStatement(query);
             pstat.setInt(1, ID);
-            pstat.executeUpdate();
+            int i = pstat.executeUpdate();
+            return i;
 
         } catch (SQLException sqlException) { // catch errors
             sqlException.printStackTrace();
