@@ -102,15 +102,19 @@ public class ViewCustomer extends JFrame {
                 JOptionPane.showMessageDialog(ViewCustomer.this,
                         "Customer ID: " + customerId + ", Name: " + customerName + " deleted successfully.");
             }
-        }
-        else if (event.getSource() == updateButton){
+        } else if (event.getSource() == updateButton) {
             int row = table.getSelectedRow();
             if (row == -1) {
-                JOptionPane.showMessageDialog(ViewCustomer.this, "Please select a row to delete.");
+                JOptionPane.showMessageDialog(ViewCustomer.this, "Please select a row to update.");
                 return;
             }
             DefaultTableModel model = (DefaultTableModel) table.getModel();
             int customerId = (int) model.getValueAt(row, 0);
+            // Open the UpdateCustomer window with customerId
+            UpdateCustomer updateCustomer = new UpdateCustomer(customerId);
+            updateCustomer.setVisible(true);
+            // Close the current ViewCustomer window
+            dispose();
         }
     }
 

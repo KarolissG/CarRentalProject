@@ -22,6 +22,18 @@ public class CustomerCRUD {
         return null;
     }// method
 
+    public static ResultSet RetrieveCustomer(Connection connectionIn, int ID) {
+        try {
+            pstat = connectionIn.prepareStatement("SELECT * FROM customer WHERE customerID = ?"); // sql query
+            pstat.setInt(1, ID);
+            resultSet = pstat.executeQuery(); // executes the query
+            return resultSet;
+        } catch (SQLException sqlException) { // catch errors
+            sqlException.printStackTrace();
+        }
+        return null;
+    }// method
+
     public static Boolean LoginCheck(Connection connectionIn, String email, String password) {
         try {
             pstat = connectionIn.prepareStatement("SELECT * FROM customer WHERE email = ? AND password = ?");
@@ -95,7 +107,7 @@ public class CustomerCRUD {
             String phoneNum, String DOB, String email, String driverNum, String review) {
         try {
             // Create query for update
-            String query = "UPDATE customer SET name=?, password=?, eircode=?, phoneNo=?, DOB=?, email=?, driverNum=?, review=? WHERE id=?";
+            String query = "UPDATE customer SET name=?, password=?, eircode=?, phoneNo=?, DOB=?, email=?, driverNum=?, review=? WHERE customerID=?";
             PreparedStatement pstat = connectionIn.prepareStatement(query);
 
             // Set parameter values
@@ -112,7 +124,7 @@ public class CustomerCRUD {
             // Execute the update operation
             pstat.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace(); 
+            e.printStackTrace();
         } finally {
             try {
                 // Close PreparedStatement

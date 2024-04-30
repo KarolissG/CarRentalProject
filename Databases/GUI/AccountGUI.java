@@ -54,6 +54,7 @@ public class AccountGUI extends JFrame implements ActionListener {
             // Handle manage customers button click
             ViewCustomer viewCustomer = new ViewCustomer();
             viewCustomer.setVisible(true);
+            dispose();
         } else if (event.getSource() == registerCustomerButton) {
             // Handle register customer button click
             RegisterCustomer registerCustomer = new RegisterCustomer();
