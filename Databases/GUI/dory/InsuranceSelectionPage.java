@@ -11,7 +11,7 @@ public class InsuranceSelectionPage extends JFrame {
     public InsuranceSelectionPage() {
         setTitle("Insurance Selection");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(500, 600); // Adjusted size
+        setSize(825, 780); // Increased width by another 10%
         setLocationRelativeTo(null);
 
         // Load image
@@ -80,6 +80,11 @@ public class InsuranceSelectionPage extends JFrame {
                     selectedInsurance = "Fully Comprehensive";
                 }
                 JOptionPane.showMessageDialog(null, "You selected: " + selectedInsurance);
+
+                // Open DateSelectionPage
+                DateSelectionPage dateSelectionPage = new DateSelectionPage();
+                dateSelectionPage.setVisible(true);
+                dispose(); // Close the current InsuranceSelectionPage
             }
         });
 
