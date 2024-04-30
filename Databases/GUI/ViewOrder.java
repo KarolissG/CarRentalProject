@@ -73,6 +73,7 @@ public class ViewOrder extends JFrame {
             // Close the current window
             dispose();
         } else if (event.getSource() == deleteButton) {
+            // Delete
             int row = table.getSelectedRow();
             if (row == -1) {
                 JOptionPane.showMessageDialog(ViewOrder.this, "Please select a row to delete.");
@@ -86,13 +87,30 @@ public class ViewOrder extends JFrame {
                     "Confirmation", JOptionPane.YES_NO_OPTION);
             if (option == JOptionPane.YES_OPTION) {
                 // Delete the customer
-                CRUD2.OrderCRUD.DeleteOrder(this.connection, reservationId);
-                // Remove the row from the table model
-                model.removeRow(row);
-                // Output to user that the customer has been deleted
-                JOptionPane.showMessageDialog(ViewOrder.this,
-                        "Reservation ID: " + reservationId + " deleted successfully.");
+                if (CRUD2.OrderCRUD.DeleteOrder(this.connection, reservationId) != 1) {
+                    JOptionPane.showMessageDialog(ViewOrder.this, "Error Deleting Order");
+                } else {
+                    // Remove the row from the table model
+                    model.removeRow(row);
+                    // Output to user that the customer has been deleted
+                    JOptionPane.showMessageDialog(ViewOrder.this,
+                            "Reservation ID: " + reservationId + " deleted successfully.");
+                }
             }
+        }
+        else if (event.getSource() == updateButton){
+            int row = table.getSelectedRow();
+            if (row == -1) {
+                JOptionPane.showMessageDialog(ViewOrder.this, "Please select a row to update.");
+                return;
+            }
+            DefaultTableModel model = (DefaultTableModel) table.getModel();
+            int reservationId = (int) model.getValueAt(row, 0);
+            // Open the UpdateOrder window with OrderId
+            UpdateOrder updateOrder = new UpdateOrder(reservationId);
+            updateOrder.setVisible(true);
+            // Close the current ViewOrder window
+            dispose();
         }
     }
 
@@ -123,6 +141,7 @@ public class ViewOrder extends JFrame {
             exception.printStackTrace();
         }
     }
+
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
