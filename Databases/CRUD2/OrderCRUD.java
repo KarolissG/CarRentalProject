@@ -11,6 +11,11 @@ public class OrderCRUD {
     static PreparedStatement pstat = null;
     static PreparedStatement tempPstat = null;
 
+    
+    /** 
+     * @param connectionIn
+     * @return ResultSet
+     */
     public static ResultSet RetrieveTable(Connection connectionIn) {
         try {
             pstat = connectionIn.prepareStatement("SELECT * FROM reservation"); // sql query

@@ -18,7 +18,7 @@ import GUI.Main.ConnectionManager;
 
 public class Login extends JFrame implements ActionListener {
     public static Boolean loggedIn = false;
-    public static String email; 
+    public static String email;
     private JTextField emailField;
     private JPasswordField passwordField;
     private JButton loginButton;
@@ -53,6 +53,9 @@ public class Login extends JFrame implements ActionListener {
         setVisible(true);
     }
 
+    /**
+     * @param e
+     */
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == loginButton) {
             String email = emailField.getText();
@@ -60,7 +63,6 @@ public class Login extends JFrame implements ActionListener {
             // user passwrod check
             if (CustomerCRUD.LoginCheck(connection, email, password)) {
                 loggedIn = true;
-                this.email = email;
                 Main Main = new Main();
                 Main.setVisible(true);
                 dispose();

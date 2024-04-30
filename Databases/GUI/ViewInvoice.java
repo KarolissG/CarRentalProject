@@ -59,6 +59,10 @@ public class ViewInvoice extends JFrame {
         setVisible(true);
     }
 
+    
+    /** 
+     * @param event
+     */
     public void actionPerformed(ActionEvent event) {
         if (event.getSource() == exitButton) {
             // Open the Main window

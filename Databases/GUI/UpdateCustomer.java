@@ -123,6 +123,10 @@ public class UpdateCustomer extends JFrame implements ActionListener {
         setVisible(true);
     }
 
+    
+    /** 
+     * @param e
+     */
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == updateButton) {
             // Perform update process

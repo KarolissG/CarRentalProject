@@ -116,6 +116,10 @@ public class HeavyRentalSystem extends JFrame {
         getContentPane().add(selectButton, BorderLayout.SOUTH);
     }
 
+    
+    /** 
+     * @param args
+     */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {

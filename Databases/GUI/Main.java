@@ -108,6 +108,10 @@ public class Main extends JFrame implements ActionListener {
         });
     }
 
+    
+    /** 
+     * @param event
+     */
     // ActionListener implementation for button clicks
     public void actionPerformed(ActionEvent event) {
         if (event.getSource() == accountButton) {
