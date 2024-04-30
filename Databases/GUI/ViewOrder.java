@@ -1,4 +1,4 @@
-package src.GUI;
+package GUI;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -17,7 +17,7 @@ import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
-import src.GUI.Main.ConnectionManager;
+import GUI.Main.ConnectionManager;
 
 public class ViewOrder extends JFrame {
 
@@ -91,11 +91,7 @@ public class ViewOrder extends JFrame {
                     "Confirmation", JOptionPane.YES_NO_OPTION);
             if (option == JOptionPane.YES_OPTION) {
                 // Delete the customer
-<<<<<<< HEAD:Databases/GUI/ViewOrder.java
                 if(CRUD2.OrderCRUD.DeleteOrder(this.connection, reservationId) != 1) {
-=======
-                if (src.CRUD2.OrderCRUD.DeleteOrder(this.connection, reservationId) != 1) {
->>>>>>> ef1c881f3678a4d9521a9c690bb8d282a766f514:Databases/src/GUI/ViewOrder.java
                     JOptionPane.showMessageDialog(ViewOrder.this, "Error Deleting Order");
                 } else {
                     // Remove the row from the table model
@@ -124,7 +120,7 @@ public class ViewOrder extends JFrame {
     private void loadData() {
         try {
             // Execute query to retrieve data
-            ResultSet resultSet = src.CRUD2.OrderCRUD.RetrieveTable(this.connection);
+            ResultSet resultSet = CRUD2.OrderCRUD.RetrieveTable(this.connection);
 
             // Get metadata
             ResultSetMetaData metaData = resultSet.getMetaData();

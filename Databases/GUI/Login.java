@@ -1,4 +1,4 @@
-package src.GUI;
+package GUI;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -13,8 +13,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
-import src.CRUD2.CustomerCRUD;
-import src.GUI.Main.ConnectionManager;
+import CRUD2.CustomerCRUD;
+import GUI.Main.ConnectionManager;
 
 public class Login extends JFrame implements ActionListener {
     public static Boolean loggedIn = false;

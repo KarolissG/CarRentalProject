@@ -1,4 +1,4 @@
-package src.GUI;
+package GUI;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -18,8 +18,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
-import src.CRUD2.OrderCRUD;
-import src.GUI.Main.ConnectionManager;
+import CRUD2.OrderCRUD;
+import GUI.Main.ConnectionManager;
 
 public class UpdateOrder extends JFrame implements ActionListener {
     private JTextField rentDateField, daysField, pickedUpField,

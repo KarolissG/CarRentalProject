@@ -1,8 +1,4 @@
-<<<<<<< HEAD:Databases/GUI/HeavyRentalSystem.java
 package GUI;
-=======
-package src.GUI;
->>>>>>> ef1c881f3678a4d9521a9c690bb8d282a766f514:Databases/src/GUI/HeavyRentalSystem.java
 
 import javax.swing.*;
 import java.awt.*;

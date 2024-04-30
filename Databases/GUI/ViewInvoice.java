@@ -1,4 +1,4 @@
-package src.GUI;
+package GUI;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -17,7 +17,7 @@ import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
-import src.GUI.Main.ConnectionManager;
+import GUI.Main.ConnectionManager;
 
 public class ViewInvoice extends JFrame {
     private JTable table;
@@ -83,7 +83,7 @@ public class ViewInvoice extends JFrame {
                     "Confirmation", JOptionPane.YES_NO_OPTION);
             if (option == JOptionPane.YES_OPTION) {
                 // Delete the customer
-                if (src.CRUD2.InvoiceCRUD.DeleteInvoice(this.connection, invoiceId) != 1) {
+                if (CRUD2.InvoiceCRUD.DeleteInvoice(this.connection, invoiceId) != 1) {
                     JOptionPane.showMessageDialog(ViewInvoice.this, "Error Deleting Order");
                 } else {
                     // Remove the row from the table model
@@ -99,7 +99,7 @@ public class ViewInvoice extends JFrame {
     private void loadData() {
         try {
             // Execute query to retrieve data
-            ResultSet resultSet = src.CRUD2.InvoiceCRUD.RetrieveTable(this.connection);
+            ResultSet resultSet = CRUD2.InvoiceCRUD.RetrieveTable(this.connection);
 
             // Get metadata
             ResultSetMetaData metaData = resultSet.getMetaData();

@@ -1,4 +1,4 @@
-package src.GUI;
+package GUI;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -17,7 +17,7 @@ import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
-import src.GUI.Main.ConnectionManager;
+import GUI.Main.ConnectionManager;
 
 public class ViewCustomer extends JFrame {
     private JTable table;
@@ -126,7 +126,7 @@ public class ViewCustomer extends JFrame {
     private void loadData() {
         try {
             // Execute query to retrieve data
-            ResultSet resultSet = src.CRUD2.CustomerCRUD.RetrieveTable(this.connection);
+            ResultSet resultSet = CRUD2.CustomerCRUD.RetrieveTable(this.connection);
 
             // Get metadata
             ResultSetMetaData metaData = resultSet.getMetaData();
@@ -157,7 +157,7 @@ public class ViewCustomer extends JFrame {
      */
     private void deleteCustomer(int customerId) {
         // Call the DeleteCustomer method from CRUD2.CustomerCRUD
-        src.CRUD2.CustomerCRUD.DeleteCustomer(this.connection, customerId);
+        CRUD2.CustomerCRUD.DeleteCustomer(this.connection, customerId);
     }
 
     

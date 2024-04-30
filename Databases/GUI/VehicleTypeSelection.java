@@ -1,8 +1,4 @@
-<<<<<<< HEAD:Databases/GUI/VehicleTypeSelection.java
 package GUI;
-=======
-package src.GUI;
->>>>>>> ef1c881f3678a4d9521a9c690bb8d282a766f514:Databases/src/GUI/VehicleTypeSelection.java
 
 import javax.swing.*;
 import java.awt.*;

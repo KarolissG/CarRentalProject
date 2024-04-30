@@ -1,8 +1,4 @@
-<<<<<<< HEAD:Databases/GUI/DateSelectionPage.java
 package GUI;
-=======
-package src.GUI;
->>>>>>> ef1c881f3678a4d9521a9c690bb8d282a766f514:Databases/src/GUI/DateSelectionPage.java
 
 import javax.swing.*;
 import java.awt.*;
