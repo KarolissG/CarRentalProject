@@ -73,6 +73,10 @@ public class ViewCustomer extends JFrame {
         setVisible(true);
     }
 
+    
+    /** 
+     * @param event
+     */
     public void actionPerformed(ActionEvent event) {
         if (event.getSource() == exitButton) {
             // Open the AccountGUI window

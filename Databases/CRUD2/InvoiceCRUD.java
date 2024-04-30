@@ -10,6 +10,11 @@ public class InvoiceCRUD {
     static PreparedStatement pstat = null;
     static PreparedStatement tempPstat = null;
 
+    
+    /** 
+     * @param connectionIn
+     * @return ResultSet
+     */
     public static ResultSet RetrieveTable(Connection connectionIn) {
         try {
             pstat = connectionIn.prepareStatement("SELECT * FROM invoice"); // sql query

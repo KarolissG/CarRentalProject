@@ -76,6 +76,10 @@ public class VehicleTypeSelection extends JFrame {
         getContentPane().add(selectButton, BorderLayout.SOUTH); // Add select button to the south position
     }
 
+    
+    /** 
+     * @param args
+     */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {

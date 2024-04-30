@@ -49,6 +49,10 @@ public class AccountGUI extends JFrame implements ActionListener {
         });
     }
 
+    
+    /** 
+     * @param event
+     */
     public void actionPerformed(ActionEvent event) {
         if (event.getSource() == manageCustomersButton) {
             // Handle manage customers button click

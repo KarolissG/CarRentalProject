@@ -93,6 +93,10 @@ public class InsuranceSelectionPage extends JFrame {
         getContentPane().add(mainPanel);
     }
 
+    
+    /** 
+     * @param args
+     */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {

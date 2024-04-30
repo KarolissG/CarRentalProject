@@ -65,6 +65,10 @@ public class ViewOrder extends JFrame {
         setVisible(true);
     }
 
+    
+    /** 
+     * @param event
+     */
     public void actionPreformed(ActionEvent event) {
         if (event.getSource() == exitButton) {
             // Open the Main window

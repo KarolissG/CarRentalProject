@@ -129,6 +129,10 @@ public class CarRentalSystem extends JFrame {
         getContentPane().add(buttonPanel, BorderLayout.SOUTH);
     }
 
+    
+    /** 
+     * @param args
+     */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {

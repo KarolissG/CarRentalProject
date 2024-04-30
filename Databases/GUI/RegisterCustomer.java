@@ -89,6 +89,10 @@ public class RegisterCustomer extends JFrame implements ActionListener {
         setVisible(true);
     }
 
+    
+    /** 
+     * @param e
+     */
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == registerButton) {
             // Perform registration process
