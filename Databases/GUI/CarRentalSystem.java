@@ -1,47 +1,57 @@
-package src.GUI;
+package GUI;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class HeavyRentalSystem extends JFrame {
+public class CarRentalSystem extends JFrame {
     private JPanel imagePanel;
     private JButton selectButton;
     private JLabel selectedImageLabel; // Track the selected image label
 
-    private String[] heavyImagePaths = {
-        "heavy1.jpg",
-        "heavy2.jpg",
-        "heavy3.jpg",
-        "heavy4.jpg",
-        "heavy5.jpg",
-        "heavy6.jpg",
-        "heavy7.jpg",
-        "heavy8.jpg",
+    private String[] carImagePaths = {
+        "car1.jpg",
+        "car2.jpg",
+        "car3.jpg",
+        "car4.jpg",
+        "car5.jpg",
+        "car6.jpg",
+        "car7.jpg",
+        "car8.jpg",
+        "car9.jpg",
+        "car10.jpg",
+        "car11.jpg",
+        "car12.jpg",
+        "car13.jpg"
     };
 
-    private String[] heavyModels = {
-        "Caterpillar",
-        "Fork lift",
-        "School bus Monster truck",
-        "Tractor",
-        "Digger",
-        "Flat bed truck",
-        "Shmol truck",
-        "Big truck",
+    private String[] carModels = {
+        "BMW E36",
+        "BMW E38",
+        "BMW E39",
+        "BMW E46",
+        "BMW E60",
+        "BMW E90",
+        "BMW F10",
+        "BMW F30",
+        "BMW F82",
+        "BMW E21",
+        "BMW 28",
+        "BMW E30",
+        "BMW E34"
     };
 
-    public HeavyRentalSystem() {
-        setTitle("Heavy Rental System");
+    public CarRentalSystem() {
+        setTitle("Car Rental System");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(600, 500); // Adjusted size
+        setSize(500, 800); // Adjusted size to fit 7 x 2 grid
         setLocationRelativeTo(null);
 
         imagePanel = new JPanel();
-        imagePanel.setLayout(new GridLayout(4, 2, 10, 10)); // 4 rows, 2 columns, with gaps of 10 pixels
+        imagePanel.setLayout(new GridLayout(7, 2, 10, 10)); // 7 rows, 2 columns, with gaps of 10 pixels
 
-        for (int i = 0; i < heavyImagePaths.length; i++) {
-            ImageIcon imageIcon = new ImageIcon(getClass().getResource(heavyImagePaths[i]));
+        for (int i = 0; i < carImagePaths.length; i++) {
+            ImageIcon imageIcon = new ImageIcon(getClass().getResource(carImagePaths[i]));
             Image image = imageIcon.getImage().getScaledInstance(200, 150, Image.SCALE_SMOOTH); // Adjusted image size
             imageIcon = new ImageIcon(image);
             JLabel imageLabel = new JLabel(imageIcon);
@@ -60,7 +70,7 @@ public class HeavyRentalSystem extends JFrame {
                 }
             });
 
-            JLabel nameLabel = new JLabel(heavyModels[i], SwingConstants.CENTER); // Label to display heavy model
+            JLabel nameLabel = new JLabel(carModels[i], SwingConstants.CENTER); // Label to display car model
             nameLabel.setForeground(Color.BLUE); // Set text color to blue
 
             JPanel labelPanel = new JPanel(new FlowLayout(FlowLayout.CENTER)); // Panel to hold the text label
@@ -74,8 +84,8 @@ public class HeavyRentalSystem extends JFrame {
         }
 
         JScrollPane scrollPane = new JScrollPane(imagePanel);
-        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 
         selectButton = new JButton("Select");
         selectButton.addActionListener(new ActionListener() {
@@ -99,21 +109,24 @@ public class HeavyRentalSystem extends JFrame {
                             }
                         }
                     }
-                    String selectedModel = heavyModels[index];
+                    String selectedModel = carModels[index];
                     // Show message and redirect to InsuranceSelectionPage
-                    JOptionPane.showMessageDialog(null, selectedModel + " has been selected", "Heavy Rental Selected", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, selectedModel + " has been selected", "Car Rental Selected", JOptionPane.INFORMATION_MESSAGE);
                     InsuranceSelectionPage insurancePage = new InsuranceSelectionPage();
                     insurancePage.setVisible(true);
                     dispose(); // Close the current window
                 } else {
-                    JOptionPane.showMessageDialog(null, "Please select a heavy first.", "No Heavy Selected", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Please select a car first.", "No Car Selected", JOptionPane.WARNING_MESSAGE);
                 }
             }
         });
 
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.add(selectButton);
+
         getContentPane().setLayout(new BorderLayout());
         getContentPane().add(scrollPane, BorderLayout.CENTER);
-        getContentPane().add(selectButton, BorderLayout.SOUTH);
+        getContentPane().add(buttonPanel, BorderLayout.SOUTH);
     }
 
     
@@ -123,8 +136,8 @@ public class HeavyRentalSystem extends JFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                HeavyRentalSystem heavyRentalSystem = new HeavyRentalSystem();
-                heavyRentalSystem.setVisible(true);
+                CarRentalSystem carRentalSystem = new CarRentalSystem();
+                carRentalSystem.setVisible(true);
             }
         });
     }

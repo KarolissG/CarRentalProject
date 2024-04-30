@@ -1,4 +1,4 @@
-package src.GUI;
+package GUI;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 
-import src.CRUD2.OrderCRUD;
+import CRUD2.OrderCRUD;
 
 public class RegistrationPlateListBox extends JList<String> {
     public RegistrationPlateListBox(Connection connection) {
