@@ -90,4 +90,38 @@ public class CustomerCRUD {
             }
         }
     }
+
+    public static void UpdateCustomer(Connection connectionIn, int idIn, String name, String password, String eircode,
+            String phoneNum, String DOB, String email, String driverNum, String review) {
+        try {
+            // Create query for update
+            String query = "UPDATE customer SET name=?, password=?, eircode=?, phoneNo=?, DOB=?, email=?, driverNum=?, review=? WHERE id=?";
+            PreparedStatement pstat = connectionIn.prepareStatement(query);
+
+            // Set parameter values
+            pstat.setString(1, name);
+            pstat.setString(2, password);
+            pstat.setString(3, eircode);
+            pstat.setString(4, phoneNum);
+            pstat.setString(5, DOB);
+            pstat.setString(6, email);
+            pstat.setString(7, driverNum);
+            pstat.setString(8, review);
+            pstat.setInt(9, idIn);
+
+            // Execute the update operation
+            pstat.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace(); 
+        } finally {
+            try {
+                // Close PreparedStatement
+                if (pstat != null) {
+                    pstat.close();
+                }
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+        }
+    }
 }

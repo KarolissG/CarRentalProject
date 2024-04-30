@@ -22,6 +22,7 @@ import GUI.Main.ConnectionManager;
 public class ViewCustomer extends JFrame {
     private JTable table;
     private JScrollPane scrollPane;
+    private JButton updateButton;
     private JButton deleteButton;
     private JButton exitButton; // New exit button
     private Connection connection = ConnectionManager.getConnection();
@@ -45,6 +46,10 @@ public class ViewCustomer extends JFrame {
         add(scrollPane, BorderLayout.CENTER);
 
         // Create delete button
+        updateButton = new JButton("Update");
+        updateButton.addActionListener(this::actionPerformed);
+
+        // Create delete button
         deleteButton = new JButton("Delete");
         deleteButton.addActionListener(this::actionPerformed);
 
@@ -53,8 +58,9 @@ public class ViewCustomer extends JFrame {
         exitButton.addActionListener(this::actionPerformed);
 
         // Create panel for buttons
-        JPanel buttonPanel = new JPanel(new GridLayout(1, 2)); // GridLayout with 1 row and 2 columns
+        JPanel buttonPanel = new JPanel(new GridLayout(1, 3)); // GridLayout with 1 row and 2 columns
         buttonPanel.add(exitButton);
+        buttonPanel.add(updateButton);
         buttonPanel.add(deleteButton);
 
         // Add form panel and button panel to the frame's content pane
@@ -96,6 +102,15 @@ public class ViewCustomer extends JFrame {
                 JOptionPane.showMessageDialog(ViewCustomer.this,
                         "Customer ID: " + customerId + ", Name: " + customerName + " deleted successfully.");
             }
+        }
+        else if (event.getSource() == updateButton){
+            int row = table.getSelectedRow();
+            if (row == -1) {
+                JOptionPane.showMessageDialog(ViewCustomer.this, "Please select a row to delete.");
+                return;
+            }
+            DefaultTableModel model = (DefaultTableModel) table.getModel();
+            int customerId = (int) model.getValueAt(row, 0);
         }
     }
 
