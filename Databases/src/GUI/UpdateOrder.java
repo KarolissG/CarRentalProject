@@ -1,4 +1,4 @@
-package GUI;
+package src.GUI;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -18,8 +18,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
-import CRUD2.OrderCRUD;
-import GUI.Main.ConnectionManager;
+import src.CRUD2.OrderCRUD;
+import src.GUI.Main.ConnectionManager;
 
 public class UpdateOrder extends JFrame implements ActionListener {
     private JTextField rentDateField, daysField, pickedUpField,
@@ -144,6 +144,10 @@ public class UpdateOrder extends JFrame implements ActionListener {
         }
     }
 
+    
+    /** 
+     * @return boolean
+     */
     private boolean updateOrder() {
         String rentDate = rentDateField.getText();
         String days = daysField.getText();
@@ -156,6 +160,10 @@ public class UpdateOrder extends JFrame implements ActionListener {
         return true;
     }
 
+    
+    /** 
+     * @param args
+     */
     public static void main(String[] args) {
         int orderId = 1;
         javax.swing.SwingUtilities.invokeLater(new Runnable() {

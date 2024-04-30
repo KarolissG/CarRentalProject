@@ -1,4 +1,4 @@
-package GUI;
+package src.GUI;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -136,6 +136,10 @@ public class Main extends JFrame implements ActionListener {
 
     }
 
+    
+    /** 
+     * @param args
+     */
     // Main method to start the application
     public static void main(String[] args) {
         if (Login.loggedIn) {

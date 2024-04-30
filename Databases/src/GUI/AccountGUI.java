@@ -1,4 +1,4 @@
-package GUI;
+package src.GUI;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -72,6 +72,10 @@ public class AccountGUI extends JFrame implements ActionListener {
         }
     }
 
+    
+    /** 
+     * @param args
+     */
     public static void main(String[] args) {
         // Run GUI on the event dispatch thread
         SwingUtilities.invokeLater(new Runnable() {

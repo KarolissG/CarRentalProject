@@ -1,12 +1,10 @@
-package GUI;
+package src.GUI;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -15,21 +13,19 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import CRUD2.CustomerCRUD;
-import GUI.Main.ConnectionManager;
+import src.CRUD2.CustomerCRUD;
+import src.GUI.Main.ConnectionManager;
 
-public class UpdateCustomer extends JFrame implements ActionListener {
+public class RegisterCustomer extends JFrame implements ActionListener {
     private JTextField nameField, passwordField, eircodeField,
             phoneNoField, dobField, emailField, driverNumField,
             reviewField;
-    private JButton updateButton;
-    private JButton cancelButton;
+    private JButton registerButton;
+    private JButton cancelButton; // New cancel button
     private Connection connection = ConnectionManager.getConnection();
-    private int customerId;
 
-    public UpdateCustomer(int customerId) {
-        this.customerId = customerId;
-        setTitle("Update Customer");
+    public RegisterCustomer() {
+        setTitle("Customer Registration");
         setSize(400, 300);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -53,12 +49,12 @@ public class UpdateCustomer extends JFrame implements ActionListener {
         driverNumField = new JTextField();
         reviewField = new JTextField();
 
-        // Create update button
-        updateButton = new JButton("Update");
-        updateButton.addActionListener(this);
+        // Create register button
+        registerButton = new JButton("Register");
+        registerButton.addActionListener(this);
 
         // Create cancel button
-        cancelButton = new JButton("Back");
+        cancelButton = new JButton("Cancel");
         cancelButton.addActionListener(this);
 
         // Create panel for form components
@@ -81,44 +77,14 @@ public class UpdateCustomer extends JFrame implements ActionListener {
         formPanel.add(reviewField);
 
         // Create panel for buttons
-        JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
+        JPanel buttonPanel = new JPanel(new GridLayout(1, 2)); // GridLayout with 1 row and 2 columns
         buttonPanel.add(cancelButton);
-        buttonPanel.add(updateButton);
+        buttonPanel.add(registerButton);
 
         // Add form panel and button panel to the frame's content pane
         getContentPane().setLayout(new BorderLayout());
         getContentPane().add(formPanel, BorderLayout.CENTER);
         getContentPane().add(buttonPanel, BorderLayout.SOUTH);
-        // fill form
-        try {
-            // Call RetrieveCustomer method to get the customer data
-            ResultSet resultSet = CustomerCRUD.RetrieveCustomer(connection, customerId);
-
-            // Check if resultSet is not null and move cursor to the first row
-            if (resultSet != null && resultSet.next()) {
-                // Extract data from resultSet
-                String name = resultSet.getString("name");
-                String password = resultSet.getString("password");
-                String eircode = resultSet.getString("eircode");
-                String phoneNo = resultSet.getString("phoneNo");
-                String dob = resultSet.getString("DOB");
-                String email = resultSet.getString("email");
-                String driverNum = resultSet.getString("driverNum");
-                String review = resultSet.getString("review");
-
-                // Set the extracted data into the form fields
-                nameField.setText(name);
-                passwordField.setText(password);
-                eircodeField.setText(eircode);
-                phoneNoField.setText(phoneNo);
-                dobField.setText(dob);
-                emailField.setText(email);
-                driverNumField.setText(driverNum);
-                reviewField.setText(review);
-            }
-        } catch (SQLException sqlException) {
-            sqlException.printStackTrace();
-        }
 
         setVisible(true);
     }
@@ -128,20 +94,34 @@ public class UpdateCustomer extends JFrame implements ActionListener {
      * @param e
      */
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == updateButton) {
-            // Perform update process
-            if (updateCustomer()) {
-                JOptionPane.showMessageDialog(this, "Customer Updated");
+        if (e.getSource() == registerButton) {
+            // Perform registration process
+            if (registerCustomer()) {
+                JOptionPane.showMessageDialog(this, "Customer Created ");
             }
+
         } else if (e.getSource() == cancelButton) {
-            // Handle manage customers button click
-            ViewCustomer viewCustomer = new ViewCustomer();
-            viewCustomer.setVisible(true);
-            dispose(); // Close the window if cancel button is clicked
+            if (Login.loggedIn) {
+                // Open the AccountGUI window
+                AccountGUI accountGUI = new AccountGUI();
+                accountGUI.setVisible(true);
+                // Close the current ViewCustomer window
+                dispose();
+            } else {
+                // Open the Login window
+                Login Login = new Login();
+                Login.setVisible(true);
+                // Close the current window
+                dispose();
+            }
         }
     }
 
-    private boolean updateCustomer() {
+    
+    /** 
+     * @return boolean
+     */
+    private boolean registerCustomer() {
         String name = nameField.getText();
         String password = passwordField.getText();
         String eircode = eircodeField.getText();
@@ -151,20 +131,60 @@ public class UpdateCustomer extends JFrame implements ActionListener {
         String driverNum = driverNumField.getText();
         String review = reviewField.getText();
 
-        // Validate input fields here...
+        if (name.isEmpty() || password.isEmpty() || eircode.isEmpty() || phoneNo.isEmpty()
+                || dob.isEmpty() || email.isEmpty() || driverNum.isEmpty() || review.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "All fields are required. Please fill in all fields.");
+            return false;
+        }
 
-        // Call the UpdateCustomer function
-        CustomerCRUD.UpdateCustomer(connection, customerId, name, password, eircode, phoneNo, dob, email, driverNum,
-                review);
-        return true; // Return true if update successful, handle error cases otherwise
+        // Validation for email format
+        if (!email.contains("@")) {
+            JOptionPane.showMessageDialog(this, "Please enter a valid email address.");
+            return false;
+        }
+
+        // Validation for lengths of certain fields
+        if (phoneNo.length() > 15) {
+            JOptionPane.showMessageDialog(this, "Please enter a valid phone number (15 digits).");
+            return false;
+        }
+        if (driverNum.length() > 10) {
+            JOptionPane.showMessageDialog(this, "Please enter a valid driver number (10 digits).");
+            return false;
+        }
+
+        // Validation for date format (yyyy-mm-dd)
+        if (!dob.matches("\\d{4}-\\d{2}-\\d{2}")) {
+            JOptionPane.showMessageDialog(this, "Please enter the date of birth in the format yyyy-mm-dd.");
+            return false;
+        }
+
+        // Call the RegisterCustomer function
+        CustomerCRUD.RegisterCustomer(connection, name, password, eircode, phoneNo, dob, email, driverNum, review);
+        clearFormFields();
+        return true;
     }
 
+    private void clearFormFields() {
+        nameField.setText("");
+        passwordField.setText("");
+        eircodeField.setText("");
+        phoneNoField.setText("");
+        dobField.setText("");
+        emailField.setText("");
+        driverNumField.setText("");
+        reviewField.setText("");
+    }
+
+    
+    /** 
+     * @param args
+     */
     public static void main(String[] args) {
-        int customerId = 1;
         // Run GUI on the event dispatch thread
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                new UpdateCustomer(customerId);
+                new RegisterCustomer();
             }
         });
     }

@@ -1,4 +1,4 @@
-package CRUD2;
+package src.CRUD2;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -27,6 +27,12 @@ public class CustomerCRUD {
         return null;
     }// method
 
+    
+    /** 
+     * @param connectionIn
+     * @param ID
+     * @return ResultSet
+     */
     public static ResultSet RetrieveCustomer(Connection connectionIn, int ID) {
         try {
             pstat = connectionIn.prepareStatement("SELECT * FROM customer WHERE customerID = ?"); // sql query
@@ -39,6 +45,13 @@ public class CustomerCRUD {
         return null;
     }// method
 
+    
+    /** 
+     * @param connectionIn
+     * @param email
+     * @param password
+     * @return Boolean
+     */
     public static Boolean LoginCheck(Connection connectionIn, String email, String password) {
         try {
             pstat = connectionIn.prepareStatement("SELECT * FROM customer WHERE email = ? AND password = ?");
